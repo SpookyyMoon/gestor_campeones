@@ -1,5 +1,3 @@
-//Caracteres especiales
-const regex = /[!@#$%^&*()\-+={}[\]:;"'<>,.?\/|\\]/
 //Imports
 const inventario = require ('./gestor_campeones');
 //Prompt

@@ -1,0 +1,14 @@
+{
+    "CAMPEONES": [
+        {
+            "nombre": "John Doe",
+            "rol": "Tanque",
+            "poder": 70
+        },
+        {
+            "nombre": "Jane Doe",
+            "rol": "Pícaro",
+            "poder": 50
+        }
+    ]
+}

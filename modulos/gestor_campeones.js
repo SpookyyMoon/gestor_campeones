@@ -1,8 +1,10 @@
+// Filesystem
 const fs = require('fs');
-const menu = require('./menu');
-//Data
-const data = JSON.parse(fs.readFileSync('../campeones.json', 'utf8'));
-//Caracteres especiales
+// Prompt
+const prompt = require('prompt-sync')();
+// Data
+const data = JSON.parse(fs.readFileSync('./campeones.json', 'utf8'));
+// Caracteres especiales
 const regex = /[!@#$%^&*()\-+={}[\]:;"'<>,.?\/|\\]/;    
 
 class Campeones{
@@ -12,23 +14,25 @@ class Campeones{
         this.poder = poder;
     }
 
-    toString(campeon){
-        console.log(`Campeon: ${data.CAMPEONES[campeon].nombre} - Rol: ${data.CAMPEONES[campeon].rol} - Poder: ${data.CAMPEONES[campeon].rol}`);
+    static toString(campeon){ // Muestra cada campeon en forma de string legible
+        console.log(`Campeon: ${campeon.nombre} - Rol: ${campeon.rol} - Poder: ${campeon.rol}`);
     }
 
 }
 
 class Juego{
-    agregarCampeon(){
+    static agregarCampeon(menu){ // Recibe la función menú para poder regresar
         console.clear();
-        agregarCampeonNombre();
         let nombreCampeon, rolCampeon, poderCampeon;
+        agregarCampeonNombre();
 
         function agregarCampeonNombre(){
             console.log('=== Nuevo Campeón ===');
             let nombre = prompt ('Introduce el nombre del nuevo campeón: ');
-                if (nombre.includes(regex) || nombre === " " || nombre === ""){
+                if (regex.test(nombre) || nombre === " " || nombre === ""){
+                    console.log('\n');
                     console.log('Has introucido un nombre inválido!');
+                    console.log('\n');
                         prompt ('Pulsa enter para volver a intentarlo...');
                         return this.agregarCampeonNombre;
                 }
@@ -39,8 +43,10 @@ class Juego{
         }
         function agregarCampeonRol(){
             let rol = prompt ('Introduce el rol del nuevo campeón [Ej: Pícaro]: ');
-            if (rol.includes(regex) || rol === " " || rol === ""){
+            if (regex.test(rol) || rol === " " || rol === ""){
+                console.log('\n');
                 console.log('Has introucido un rol inválido!');
+                console.log('\n');
                     prompt ('Pulsa enter para volver a intentarlo...');
                     return this.agregarCampeonRol;
             }
@@ -51,8 +57,10 @@ class Juego{
         }
         function agregarCampeonPoder(){
             let poder = Number(prompt ('Introduce el poder del nuevo campeón [0-100]: '));
-            if (poder.includes(regex) || poder < 0 || poder > 100 || isNaN(poder)){
+            if (regex.test(poder) || poder < 0 || poder > 100 || isNaN(poder)){
+                console.log('\n');
                 console.log('Has introducido un poder inválido, asegurate de introducir un valor numérico entre 0 y 100!');
+                console.log('\n');
                     prompt ('Pulsa enter para volver a intentarlo...');
                     return this.agregarCampeonPoder;
             }
@@ -62,26 +70,48 @@ class Juego{
             }
         }
         function agregarCampeonConfirmar(){
+            console.clear();
             console.log('=== Nuevo Campeón ===');
+            console.log('\n');
             console.log(`Nombre: ${nombreCampeon} - Rol: ${rolCampeon} - Poder: ${poderCampeon}`);
+            console.log('\n');
             let confirmacion = prompt ('¿Quieres confirmar la creación del heroe? (S/N): ');
-            switch (confirmacion.toLocaleLowerCase){
-                case "s":
+            switch (confirmacion){
+                case "s": case "S":
+                    const nuevo_campeon = new Campeones(nombreCampeon,rolCampeon,poderCampeon); // Crea un nuevo campeón con los datos previos
+                    data.CAMPEONES.push(nuevo_campeon); // Envia el nuevo objeto(Campeon) al json
+                    console.clear();
+                    console.log('=== Nuevo Campeón ===');
+                    console.log('\n');
                     console.log(`Heroe ${nombreCampeon} creado!`);
-                    const nuevo_campeon = new Campeones(nombreCampeon,rolCampeon,poderCampeon);
-                    data.Campeones.push(nuevo_campeon);
+                    console.log('\n');
                     prompt ('Pulsa enter para volver al menú...');
-                        return menu();
-                case "n":
+                        menu();
+                        break;
+                case "n": case "S":
+                    console.log('\n');
                     console.log(`Creación de heroe cancelada!`);
+                    console.log('\n');
                     prompt ('Pulsa enter para volver al menú...');
-                        return menu();
+                        menu();
+                        break;
                 default:
                     console.log('Opción inválida');
+                    break;
             }
         }
     }
+    static mostrarCampeones(){
+        console.log('=== Mostrar Campeones ===\n');
+        data.CAMPEONES.forEach(campeon => { // Itera la lista de campeones
+            Campeones.toString(campeon); // Envia cada campeon a toString para mostrarse correctamente
+        });
+        console.log('\n');
+    }
     ordenarCampeonPoder(){
+        function copiarCampeones(){
+
+        }
         for(let i = 0; i < data.CAMPEONES.length; i++){
             for(let x = 0; x < data.CAMPEONES.length -1; x++){
                 if(data.CAMPEONES[x].poder > data.CAMPEONES[x+1].poder){
@@ -93,8 +123,9 @@ class Juego{
         }
     }
     ordenarCampeonRol(){
+
     }
 }
 
-//Export functiones
-module.exports = {};
+// Export functiones
+module.exports = {Campeones, Juego};

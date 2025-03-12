@@ -13,7 +13,7 @@ class Campeones{
     }
 
     toString(campeon){
-        console.log(`Campeon: ${} - Rol: ${} - Poder: ${}`);
+        console.log(`Campeon: ${data.CAMPEONES[campeon].nombre} - Rol: ${data.CAMPEONES[campeon].rol} - Poder: ${data.CAMPEONES[campeon].rol}`);
     }
 
 }
@@ -58,23 +58,41 @@ class Juego{
             }
             else{
                 poderCampeon = poder;
-                console.log('=== Nuevo Campeón ===');
-                console.log(`Nombre: ${nombreCampeon} - Rol: ${rolCampeon} - Poder: ${poderCampeon}`);
-                let confirmacion = prompt ('¿Quieres confirmar la creación del heroe? (S/N): ');
-                    switch (confirmacion.toLocaleLowerCase){
-                        case "s":
-                            console.log(`Heroe ${nombreCampeon} creado!`);
-                            prompt ('Pulsa enter para volver al menú...');
-                                return menu();
-                        case "n":
-                            console.log(`Creación de heroe cancelada!`);
-                            prompt ('Pulsa enter para volver al menú...');
-                                return menu();
-                        default:
-                            console.log('Opción inválida');
-                    }
+                agregarCampeonConfirmar();
             }
         }
+        function agregarCampeonConfirmar(){
+            console.log('=== Nuevo Campeón ===');
+            console.log(`Nombre: ${nombreCampeon} - Rol: ${rolCampeon} - Poder: ${poderCampeon}`);
+            let confirmacion = prompt ('¿Quieres confirmar la creación del heroe? (S/N): ');
+            switch (confirmacion.toLocaleLowerCase){
+                case "s":
+                    console.log(`Heroe ${nombreCampeon} creado!`);
+                    const nuevo_campeon = new Campeones(nombreCampeon,rolCampeon,poderCampeon);
+                    data.Campeones.push(nuevo_campeon);
+                    prompt ('Pulsa enter para volver al menú...');
+                        return menu();
+                case "n":
+                    console.log(`Creación de heroe cancelada!`);
+                    prompt ('Pulsa enter para volver al menú...');
+                        return menu();
+                default:
+                    console.log('Opción inválida');
+            }
+        }
+    }
+    ordenarCampeonPoder(){
+        for(let i = 0; i < data.CAMPEONES.length; i++){
+            for(let x = 0; x < data.CAMPEONES.length -1; x++){
+                if(data.CAMPEONES[x].poder > data.CAMPEONES[x+1].poder){
+                    let guardado_valor = data.CAMPEONES[x+1].poder;
+                    data.CAMPEONES[x+1].poder = data.CAMPEONES[x].poder;
+                    data.CAMPEONES[x].poder = guardado_valor;
+                }
+            }
+        }
+    }
+    ordenarCampeonRol(){
     }
 }
 

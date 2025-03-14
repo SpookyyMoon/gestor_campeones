@@ -27,31 +27,37 @@ function menu(){
             break;
         case 2:
             console.clear();
-            gestor_campeones.Juego.mostrarCampeones(); // Llama a la función estática en el módulo
+                console.log(`
+    === Mostrar Campeones===
+                    
+        1. Ordenar por poder
+        2. Ordenar por rol
+        
+        3. Atrás
+        
+            `);
+            let opcion_ordenar = Number(prompt ("Selecciona una opión: "));
+            switch(opcion_ordenar){
+                case 1: 
+                    gestor_campeones.Juego.mostrarCampeones(opcion_ordenar); // Llama a la función estática en el módulo
+                    break;
+                case 2: 
+                    gestor_campeones.Juego.mostrarCampeones(opcion_ordenar); // Llama a la función estática en el módulo
+                    break;
+                default:
+                    console.log("Has seleccionado una opción inválida!");
+                    console.clear();
+                    break;
+            }
             prompt ("Pulsa enter para volver...");
-                console.clear();
-                menu();
+            console.clear();
+            menu();
             break;
         case 3:
             console.clear();
-            
+            gestor_campeones.Juego.buscarCampeon(menu); //Llama a la función estática en el módulo (Pasa la funcion menu al método para romper la dependencia circular)
             break;
         case 4:
-            console.clear();
-            
-            break;
-        case 5:
-            console.clear();
-            
-            break;
-        case 6:
-            console.clear();
-            
-            prompt ("Pulsa enter para volver...");
-                console.clear();
-                menu();
-            break;
-        case 7:
             console.clear();
             process.exit();
         default:

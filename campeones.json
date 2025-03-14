@@ -9,6 +9,11 @@
             "nombre": "Jane Doe",
             "rol": "Pícaro",
             "poder": 50
+        },
+        {
+            "nombre": "Test",
+            "rol": "A-Test",
+            "poder": 100
         }
     ]
 }

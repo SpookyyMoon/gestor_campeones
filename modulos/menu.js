@@ -5,7 +5,7 @@ const prompt = require('prompt-sync')();
 
 // Funcion menu
 function menu(){
-    
+    console.clear();
     // Muestra opciones
     console.log(`
 
@@ -50,8 +50,7 @@ function menu(){
                     break;
             }
             prompt ("Pulsa enter para volver...");
-            console.clear();
-            menu();
+                menu();
             break;
         case 3:
             console.clear();

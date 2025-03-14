@@ -24,7 +24,7 @@ class Juego{
 
     // Comprueba expresiones regulares en inputs
     static regexCheckCampeones(entrada){
-        if (regex.test(entrada) || entrada === " " || entrada === ""){
+        if (regex.test(entrada) || entrada === " " || entrada === "" || !isNaN(entrada)){
             return true;
         }
         else{
@@ -79,7 +79,7 @@ class Juego{
             console.log('=== Nuevo Campeón ===');
             console.log('\n');
             let poder = Number(prompt ('Introduce el poder del nuevo campeón [0-100]: '));
-            if (isNaN(poder) || poder < 0){
+            if (isNaN(poder) || poder < 0 || poder > 100){
                 console.log('\n');
                 console.log('Has introducido un poder inválido, asegurate de introducir un valor numérico entre 0 y 100!');
                 console.log('\n');
@@ -103,6 +103,7 @@ class Juego{
                 case "s": case "S":
                     const nuevo_campeon = new Campeones(nombreCampeon,rolCampeon,poderCampeon); // Crea un nuevo campeón con los datos previos
                     data.CAMPEONES.push(nuevo_campeon); // Envia el nuevo objeto(Campeon) al json
+                    fs.writeFileSync('./campeones.json', JSON.stringify(data, null, 4), 'utf8');
                     console.clear();
                     console.log('=== Nuevo Campeón ===');
                     console.log('\n');
@@ -126,6 +127,7 @@ class Juego{
     }
     // Método mostrar campeones
     static mostrarCampeones(orden){
+        console.clear();
         console.log('=== Mostrar Campeones ===\n');
         switch(orden){
             case 1: // Bubble sort campeones por poder

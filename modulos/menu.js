@@ -44,6 +44,8 @@ function menu(){
                 case 2: 
                     gestor_campeones.Juego.mostrarCampeones(opcion_ordenar); // Llama a la función estática en el módulo
                     break;
+                case 3:
+                    return menu();
                 default:
                     console.log("Has seleccionado una opción inválida!");
                     console.clear();

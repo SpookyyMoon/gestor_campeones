@@ -139,7 +139,7 @@ class Juego{
         }
 
         function ordenarCampeonPoder(){
-            let campeonesCopia = data.CAMPEONES;
+            let campeonesCopia = JSON.parse(JSON.stringify(data.CAMPEONES)); // Copia profunda
 
             for(let i = 0; i < campeonesCopia.length; i++){
                 for(let x = 0; x < campeonesCopia.length -1; x++){
@@ -154,7 +154,7 @@ class Juego{
         }
 
         function ordenarCampeonRol(){
-            let campeonesCopia = data.CAMPEONES;
+            let campeonesCopia = JSON.parse(JSON.stringify(data.CAMPEONES)); // Copia profunda
 
             for(let i = 0; i < campeonesCopia.length; i++){
                 for(let x = 0; x < campeonesCopia.length -1; x++){
@@ -223,7 +223,7 @@ class Juego{
         }
         // Ordena campeones por nombre 
         function ordenarCampeonNombre(){
-            campeonesCopia = data.CAMPEONES;
+            let campeonesCopia = JSON.parse(JSON.stringify(data.CAMPEONES)); // Copia profunda
 
             for(let i = 0; i < campeonesCopia.length; i++){
                 for(let x = 0; x < campeonesCopia.length -1; x++){
